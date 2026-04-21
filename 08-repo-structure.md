@@ -23,22 +23,22 @@ This document proposes a practical repo/file structure for a local-first Expo ap
 
 ```text
 garden-app/
-├─ app/
-│  ├─ _layout.tsx
-│  ├─ index.tsx                    # Home screen
-│  ├─ scan.tsx                     # QR scan screen
-│  ├─ plants/
-│  │  ├─ index.tsx                 # Plant list screen
-│  │  ├─ new.tsx                   # Add plant screen
-│  │  ├─ [plantId].tsx             # Plant detail screen
-│  │  └─ [plantId]/edit.tsx        # Edit plant screen
-│  ├─ gardens/
-│  │  ├─ index.tsx                 # Garden list / switcher
-│  │  ├─ new.tsx                   # Add garden screen
-│  │  └─ [gardenId].tsx            # Garden detail / overview
-│  └─ settings.tsx                 # Minimal settings screen (optional)
-│
 ├─ src/
+│  ├─ app/
+│  │  ├─ _layout.tsx
+│  │  ├─ index.tsx                 # Home screen
+│  │  ├─ scan.tsx                  # QR scan screen
+│  │  ├─ plants/
+│  │  │  ├─ index.tsx              # Plant list screen
+│  │  │  ├─ new.tsx                # Add plant screen
+│  │  │  ├─ [plantId].tsx          # Plant detail screen
+│  │  │  └─ [plantId]/edit.tsx     # Edit plant screen
+│  │  ├─ gardens/
+│  │  │  ├─ index.tsx              # Garden list / switcher
+│  │  │  ├─ new.tsx                # Add garden screen
+│  │  │  └─ [gardenId].tsx         # Garden detail / overview
+│  │  └─ settings.tsx              # Minimal settings screen (optional)
+│  │
 │  ├─ components/
 │  │  ├─ AppButton.tsx
 │  │  ├─ EmptyState.tsx
@@ -126,16 +126,17 @@ garden-app/
 ## Why Expo Router
 
 Expo Router keeps navigation close to the file system, which makes it easier to reason about screens while you are learning mobile app structure.
+In this repo, the route root lives in `src/app/`, which Expo Router supports directly.
 
 ## Suggested v1 screen mapping
 
-- `app/index.tsx` → Home
-- `app/scan.tsx` → Scan QR label
-- `app/plants/index.tsx` → Plant list
-- `app/plants/new.tsx` → Add plant
-- `app/plants/[plantId].tsx` → Plant detail
-- `app/plants/[plantId]/edit.tsx` → Edit plant
-- `app/gardens/index.tsx` → Garden switcher
+- `src/app/index.tsx` → Home
+- `src/app/scan.tsx` → Scan QR label
+- `src/app/plants/index.tsx` → Plant list
+- `src/app/plants/new.tsx` → Add plant
+- `src/app/plants/[plantId].tsx` → Plant detail
+- `src/app/plants/[plantId]/edit.tsx` → Edit plant
+- `src/app/gardens/index.tsx` → Garden switcher
 
 ## Why include Gardens now
 
@@ -149,9 +150,9 @@ Even if v1 only uses one garden per user at first, it is worth including a `gard
 
 These files or folders can be stubbed or omitted at first if you want the smallest possible prototype:
 
-- `app/gardens/new.tsx`
-- `app/gardens/[gardenId].tsx`
-- `app/settings.tsx`
+- `src/app/gardens/new.tsx`
+- `src/app/gardens/[gardenId].tsx`
+- `src/app/settings.tsx`
 - `src/services/sync/`
 - `src/db/seed.ts`
 - `src/theme/`
@@ -162,16 +163,16 @@ If you want an ultra-small starting point, this reduced structure is enough:
 
 ```text
 garden-app/
-├─ app/
-│  ├─ _layout.tsx
-│  ├─ index.tsx
-│  ├─ scan.tsx
-│  ├─ plants/
-│  │  ├─ index.tsx
-│  │  ├─ new.tsx
-│  │  ├─ [plantId].tsx
-│  │  └─ [plantId]/edit.tsx
 ├─ src/
+│  ├─ app/
+│  │  ├─ _layout.tsx
+│  │  ├─ index.tsx
+│  │  ├─ scan.tsx
+│  │  ├─ plants/
+│  │  │  ├─ index.tsx
+│  │  │  ├─ new.tsx
+│  │  │  ├─ [plantId].tsx
+│  │  │  └─ [plantId]/edit.tsx
 │  ├─ db/
 │  │  ├─ client.ts
 │  │  ├─ migrations.ts

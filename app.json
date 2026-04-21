@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "Garden Companion",
+    "slug": "garden-companion",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "gardencompanion",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Garden Companion to access your camera to scan plant labels and capture plant photos."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Garden Companion to access your photo library so you can attach plant photos.",
+          "cameraPermission": "Allow Garden Companion to access your camera so you can capture plant photos.",
+          "microphonePermission": false
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#eef6ea"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
