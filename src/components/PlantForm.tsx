@@ -79,19 +79,6 @@ export function PlantForm({
           value={values.cultivar}
         />
         <TextInputField
-          label="Location"
-          onChangeText={(value) => onChange("locationName", value)}
-          placeholder="Front border west"
-          value={values.locationName}
-        />
-        <TextInputField
-          label="Date planted"
-          autoCapitalize="none"
-          onChangeText={(value) => onChange("datePlanted", value)}
-          placeholder="YYYY-MM-DD"
-          value={values.datePlanted}
-        />
-        <TextInputField
           label="Short description"
           multiline
           onChangeText={(value) => onChange("shortDescription", value)}
@@ -100,14 +87,7 @@ export function PlantForm({
         />
       </SectionCard>
 
-      <SectionCard title="Recognition and care">
-        <TextInputField
-          label="How to recognize it"
-          multiline
-          onChangeText={(value) => onChange("recognitionNotes", value)}
-          placeholder="Leaves, flowers, bark, habit, or seasonal clues."
-          value={values.recognitionNotes}
-        />
+      <SectionCard title="Care and value">
         <TextInputField
           label="Care basics"
           multiline

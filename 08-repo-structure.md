@@ -49,58 +49,40 @@ garden-app/
 │  │  ├─ ScreenHeader.tsx
 │  │  └─ TextInputField.tsx
 │  │
-│  ├─ features/
-│  │  ├─ gardens/
-│  │  │  ├─ gardenQueries.ts
-│  │  │  ├─ gardenRepository.ts
-│  │  │  ├─ gardenTypes.ts
-│  │  │  └─ useGardens.ts
-│  │  ├─ plants/
-│  │  │  ├─ plantQueries.ts
-│  │  │  ├─ plantRepository.ts
-│  │  │  ├─ plantTypes.ts
-│  │  │  └─ usePlants.ts
-│  │  └─ scan/
-│  │     ├─ scanUtils.ts
-│  │     └─ useQrScanner.ts
+│  ├─ data/
+│  │  └─ bundledGarden.ts         # Mac-authored garden-tour content shipped with the app
 │  │
 │  ├─ db/
 │  │  ├─ client.ts                 # sqlite connection setup
 │  │  ├─ migrations.ts             # run schema migrations on launch
 │  │  ├─ schema.sql                # starter schema for v1
-│  │  ├─ seed.ts                   # optional development seed data
-│  │  └─ sqlHelpers.ts
-│  │
-│  ├─ services/
-│  │  ├─ camera/
-│  │  │  └─ qrScannerService.ts
-│  │  ├─ images/
-│  │  │  ├─ imagePickerService.ts
-│  │  │  └─ imageStorageService.ts
-│  │  └─ sync/
-│  │     └─ syncService.ts         # placeholder for future Supabase sync
-│  │
-│  ├─ lib/
-│  │  ├─ dates.ts
-│  │  ├─ ids.ts
-│  │  ├─ strings.ts
-│  │  └─ validation.ts
+│  │  └─ seed.ts                   # sync bundled garden content into SQLite on launch
 │  │
 │  ├─ constants/
 │  │  ├─ routes.ts
 │  │  └─ ui.ts
 │  │
 │  ├─ hooks/
-│  │  ├─ useAppReady.ts
-│  │  └─ useConfirmDelete.ts
+│  │  ├─ useActiveGarden.ts
+│  │  ├─ usePlant.ts
+│  │  └─ usePlants.ts
+│  │
+│  ├─ repositories/
+│  │  ├─ gardenRepository.ts
+│  │  └─ plantRepository.ts
+│  │
+│  ├─ services/
+│  │  └─ images/
+│  │     └─ imagePickerService.ts
 │  │
 │  ├─ types/
-│  │  └─ database.ts               # shared DB row types if desired
+│  │  ├─ database.ts
+│  │  └─ domain.ts
 │  │
-│  └─ theme/
-│     ├─ colors.ts
-│     ├─ spacing.ts
-│     └─ typography.ts
+│  └─ utils/
+│     ├─ dates.ts
+│     ├─ ids.ts
+│     └─ validation.ts
 │
 ├─ assets/
 │  ├─ images/
@@ -153,9 +135,8 @@ These files or folders can be stubbed or omitted at first if you want the smalle
 - `src/app/gardens/new.tsx`
 - `src/app/gardens/[gardenId].tsx`
 - `src/app/settings.tsx`
-- `src/services/sync/`
-- `src/db/seed.ts`
-- `src/theme/`
+- a future `src/services/sync/`
+- richer import/export tooling beyond `src/data/bundledGarden.ts`
 
 ## Minimal prototype repo shape
 
@@ -173,15 +154,14 @@ garden-app/
 │  │  │  ├─ new.tsx
 │  │  │  ├─ [plantId].tsx
 │  │  │  └─ [plantId]/edit.tsx
+│  ├─ data/bundledGarden.ts
 │  ├─ db/
 │  │  ├─ client.ts
 │  │  ├─ migrations.ts
-│  │  └─ schema.sql
-│  ├─ features/plants/
-│  │  ├─ plantRepository.ts
-│  │  ├─ plantTypes.ts
-│  │  └─ usePlants.ts
-│  ├─ services/camera/qrScannerService.ts
+│  │  ├─ schema.sql
+│  │  └─ seed.ts
+│  ├─ repositories/plantRepository.ts
+│  ├─ hooks/usePlants.ts
 │  └─ services/images/imagePickerService.ts
 └─ README.md
 ```
@@ -192,6 +172,7 @@ When prompting Codex:
 
 - Ask it to scaffold the smallest working version first
 - Keep local SQLite as the source of truth for v1
+- If the Mac is the source of truth for tour content, keep bundled plant data in a dedicated file and sync it into SQLite on launch
 - Do not add Supabase yet unless explicitly requested
 - Keep forms straightforward and avoid premature abstractions
 - Prefer readable repository/query functions over generic data layers

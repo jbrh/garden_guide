@@ -8,6 +8,7 @@ This document proposes a simple local-first schema for the Expo app. It is desig
 - Keep plant records flexible and easy to edit
 - Support QR assignment per plant
 - Keep image handling simple for v1
+- Support a Mac-authored bundled garden data file that can be shipped in app builds
 - Leave room for future sync and sharing
 
 ## V1 tables
@@ -18,6 +19,18 @@ For v1, use just two main tables:
 - `plants`
 
 You can add `plant_photos`, `users`, and sync metadata later.
+
+## Current bundled-content workflow
+
+The current app keeps a canonical garden-tour content file in `src/data/bundledGarden.ts`.
+
+On app launch:
+- the app initializes SQLite locally on the device
+- `src/db/seed.ts` validates the bundled garden data
+- the bundled garden and plants are upserted into SQLite by stable IDs
+- bundled records refresh on newer builds without requiring a hosted database
+
+This fits the current model where the Mac is the source of truth and phones are primarily for taking the tour.
 
 ## SQLite schema (starter)
 
@@ -39,10 +52,7 @@ CREATE TABLE IF NOT EXISTS plants (
   common_name TEXT NOT NULL,
   botanical_name TEXT,
   cultivar TEXT,
-  location_name TEXT,
-  date_planted TEXT,
   short_description TEXT,
-  recognition_notes TEXT,
   care_basics TEXT,
   habitat_value TEXT,
   personal_notes TEXT,
@@ -62,9 +72,6 @@ CREATE INDEX IF NOT EXISTS idx_plants_garden_id
 
 CREATE INDEX IF NOT EXISTS idx_plants_common_name
   ON plants(common_name);
-
-CREATE INDEX IF NOT EXISTS idx_plants_location_name
-  ON plants(location_name);
 ```
 
 ## Why these choices
@@ -102,10 +109,7 @@ export interface Plant {
   commonName: string;
   botanicalName: string | null;
   cultivar: string | null;
-  locationName: string | null;
-  datePlanted: string | null;
   shortDescription: string | null;
-  recognitionNotes: string | null;
   careBasics: string | null;
   habitatValue: string | null;
   personalNotes: string | null;
@@ -138,10 +142,7 @@ export interface CreatePlantInput {
   commonName: string;
   botanicalName?: string | null;
   cultivar?: string | null;
-  locationName?: string | null;
-  datePlanted?: string | null;
   shortDescription?: string | null;
-  recognitionNotes?: string | null;
   careBasics?: string | null;
   habitatValue?: string | null;
   personalNotes?: string | null;
@@ -153,10 +154,7 @@ export interface UpdatePlantInput {
   commonName?: string;
   botanicalName?: string | null;
   cultivar?: string | null;
-  locationName?: string | null;
-  datePlanted?: string | null;
   shortDescription?: string | null;
-  recognitionNotes?: string | null;
   careBasics?: string | null;
   habitatValue?: string | null;
   personalNotes?: string | null;
@@ -185,10 +183,7 @@ export interface PlantRow {
   common_name: string;
   botanical_name: string | null;
   cultivar: string | null;
-  location_name: string | null;
-  date_planted: string | null;
   short_description: string | null;
-  recognition_notes: string | null;
   care_basics: string | null;
   habitat_value: string | null;
   personal_notes: string | null;
@@ -222,10 +217,7 @@ export function mapPlantRow(row: PlantRow): Plant {
     commonName: row.common_name,
     botanicalName: row.botanical_name,
     cultivar: row.cultivar,
-    locationName: row.location_name,
-    datePlanted: row.date_planted,
     shortDescription: row.short_description,
-    recognitionNotes: row.recognition_notes,
     careBasics: row.care_basics,
     habitatValue: row.habitat_value,
     personalNotes: row.personal_notes,

@@ -13,11 +13,9 @@ Garden information is hard to retain and hard to share across family members. A 
 A person stands near a plant bed, scans a QR label attached to a plant marker, and immediately sees:
 - plant name
 - photo
-- recognition notes
+- short description
 - care basics
 - habitat value
-- location
-- planting date
 - personal notes
 
 ## Initial users

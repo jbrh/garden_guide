@@ -15,10 +15,7 @@ CREATE TABLE IF NOT EXISTS plants (
   common_name TEXT NOT NULL,
   botanical_name TEXT,
   cultivar TEXT,
-  location_name TEXT,
-  date_planted TEXT,
   short_description TEXT,
-  recognition_notes TEXT,
   care_basics TEXT,
   habitat_value TEXT,
   personal_notes TEXT,
@@ -38,6 +35,3 @@ CREATE INDEX IF NOT EXISTS idx_plants_garden_id
 
 CREATE INDEX IF NOT EXISTS idx_plants_common_name
   ON plants(common_name);
-
-CREATE INDEX IF NOT EXISTS idx_plants_location_name
-  ON plants(location_name);

@@ -3,12 +3,12 @@
 This repo now contains both the project docs and the first-pass Expo/React Native scaffold for the Garden Companion mobile app.
 
 ## Product idea
-A user places weather-resistant QR labels in a garden. Scanning a label opens a plant record with plant identity, recognition notes, care basics, habitat value, location, planting date, and personal notes.
+A user places weather-resistant QR labels in a garden. Scanning a label opens a plant record with plant identity, care basics, habitat value, photos, and personal notes.
 
 ## Current project state
 - Product and implementation docs are in the repo root as the source of truth.
 - App code lives under `src/`, with Expo Router routes in `src/app/`.
-- The SQLite schema, seed data, repositories, and v1 screens are scaffolded.
+- The SQLite schema, bundled garden-content sync, repositories, and v1 screens are scaffolded.
 - `package.json` and `package-lock.json` are committed, but you still need to run `npm install` in a fresh clone before starting the app.
 
 ## Why this stack
@@ -25,7 +25,8 @@ Recommended stack:
 ## Scaffolded app areas
 - `src/app/` - the single Expo Router route root for Home, Scan, Plant List, Plant Detail, Add Plant, and Edit Plant
 - `src/components/` - shared UI pieces and the reusable plant form
-- `src/db/` - SQLite client, migrations, starter schema, and development seed data
+- `src/data/` - bundled garden-tour content authored on the Mac and synced into the app database
+- `src/db/` - SQLite client, migrations, schema, and bundled-content sync logic
 - `src/repositories/` - garden and plant CRUD/query functions
 - `src/hooks/` - hooks for active garden, plant list, and plant detail loading
 - `src/services/images/` - photo picker helper
@@ -39,6 +40,21 @@ Typical next commands:
 1. `npm install`
 2. `npx expo install --fix`
 3. `npx expo start`
+
+## Bundled garden content
+If your Mac is the source of truth for the tour, edit [src/data/bundledGarden.ts](/Users/jenny/Documents/garden_guide/src/data/bundledGarden.ts:1).
+
+How it works:
+- the app upserts that bundled garden and its plants into local SQLite on launch
+- stable `id` values let newer builds update the same records on devices
+- stable `qrCodeValue` values keep label assignments attached to the intended plants
+- extra local-only records are currently left alone; bundled records with matching IDs are refreshed from the bundled file
+
+Practical workflow:
+1. update `src/data/bundledGarden.ts` on the Mac
+2. run the simulator or build a new app version
+3. install that updated build on the phones
+4. launch the app so the bundled data syncs into the device database
 
 ## Documents in this folder
 - `01-product-brief.md` - concise statement of the product, audience, scope, and goals

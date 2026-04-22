@@ -111,11 +111,9 @@ export async function searchPlants(
          common_name LIKE ?
          OR IFNULL(botanical_name, '') LIKE ?
          OR IFNULL(cultivar, '') LIKE ?
-         OR IFNULL(location_name, '') LIKE ?
        )
      ORDER BY common_name COLLATE NOCASE ASC;`,
     gardenId,
-    searchTerm,
     searchTerm,
     searchTerm,
     searchTerm,
@@ -139,10 +137,7 @@ export async function createPlant(
       common_name,
       botanical_name,
       cultivar,
-      location_name,
-      date_planted,
       short_description,
-      recognition_notes,
       care_basics,
       habitat_value,
       personal_notes,
@@ -156,10 +151,7 @@ export async function createPlant(
     trimRequired(input.commonName, "Common name"),
     trimOptional(input.botanicalName),
     trimOptional(input.cultivar),
-    trimOptional(input.locationName),
-    trimOptional(input.datePlanted),
     trimOptional(input.shortDescription),
-    trimOptional(input.recognitionNotes),
     trimOptional(input.careBasics),
     trimOptional(input.habitatValue),
     trimOptional(input.personalNotes),
@@ -201,10 +193,7 @@ export async function updatePlant(
      SET common_name = ?,
          botanical_name = ?,
          cultivar = ?,
-         location_name = ?,
-         date_planted = ?,
          short_description = ?,
-         recognition_notes = ?,
          care_basics = ?,
          habitat_value = ?,
          personal_notes = ?,
@@ -221,18 +210,9 @@ export async function updatePlant(
     input.cultivar === undefined
       ? existing.cultivar
       : trimOptional(input.cultivar),
-    input.locationName === undefined
-      ? existing.locationName
-      : trimOptional(input.locationName),
-    input.datePlanted === undefined
-      ? existing.datePlanted
-      : trimOptional(input.datePlanted),
     input.shortDescription === undefined
       ? existing.shortDescription
       : trimOptional(input.shortDescription),
-    input.recognitionNotes === undefined
-      ? existing.recognitionNotes
-      : trimOptional(input.recognitionNotes),
     input.careBasics === undefined
       ? existing.careBasics
       : trimOptional(input.careBasics),

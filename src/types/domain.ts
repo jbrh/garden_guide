@@ -15,10 +15,7 @@ export interface Plant {
   commonName: string;
   botanicalName: string | null;
   cultivar: string | null;
-  locationName: string | null;
-  datePlanted: string | null;
   shortDescription: string | null;
-  recognitionNotes: string | null;
   careBasics: string | null;
   habitatValue: string | null;
   personalNotes: string | null;
@@ -45,10 +42,7 @@ export interface CreatePlantInput {
   commonName: string;
   botanicalName?: string | null;
   cultivar?: string | null;
-  locationName?: string | null;
-  datePlanted?: string | null;
   shortDescription?: string | null;
-  recognitionNotes?: string | null;
   careBasics?: string | null;
   habitatValue?: string | null;
   personalNotes?: string | null;
@@ -60,10 +54,7 @@ export interface UpdatePlantInput {
   commonName?: string;
   botanicalName?: string | null;
   cultivar?: string | null;
-  locationName?: string | null;
-  datePlanted?: string | null;
   shortDescription?: string | null;
-  recognitionNotes?: string | null;
   careBasics?: string | null;
   habitatValue?: string | null;
   personalNotes?: string | null;
@@ -75,10 +66,7 @@ export interface PlantFormValues {
   commonName: string;
   botanicalName: string;
   cultivar: string;
-  locationName: string;
-  datePlanted: string;
   shortDescription: string;
-  recognitionNotes: string;
   careBasics: string;
   habitatValue: string;
   personalNotes: string;
@@ -90,10 +78,7 @@ export const emptyPlantFormValues: PlantFormValues = {
   commonName: "",
   botanicalName: "",
   cultivar: "",
-  locationName: "",
-  datePlanted: "",
   shortDescription: "",
-  recognitionNotes: "",
   careBasics: "",
   habitatValue: "",
   personalNotes: "",
@@ -119,10 +104,7 @@ export function mapPlantRow(row: PlantRow): Plant {
     commonName: row.common_name,
     botanicalName: row.botanical_name,
     cultivar: row.cultivar,
-    locationName: row.location_name,
-    datePlanted: row.date_planted,
     shortDescription: row.short_description,
-    recognitionNotes: row.recognition_notes,
     careBasics: row.care_basics,
     habitatValue: row.habitat_value,
     personalNotes: row.personal_notes,
@@ -138,10 +120,7 @@ export function toPlantFormValues(plant: Plant): PlantFormValues {
     commonName: plant.commonName,
     botanicalName: plant.botanicalName ?? "",
     cultivar: plant.cultivar ?? "",
-    locationName: plant.locationName ?? "",
-    datePlanted: plant.datePlanted ?? "",
     shortDescription: plant.shortDescription ?? "",
-    recognitionNotes: plant.recognitionNotes ?? "",
     careBasics: plant.careBasics ?? "",
     habitatValue: plant.habitatValue ?? "",
     personalNotes: plant.personalNotes ?? "",

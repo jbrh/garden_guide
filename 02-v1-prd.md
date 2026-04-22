@@ -44,11 +44,8 @@ The plant detail screen must show:
 - cultivar if available
 - primary photo if available
 - short description
-- how to recognize it
 - care basics
 - habitat value
-- location
-- date planted
 - personal notes
 - QR assignment status
 
@@ -89,7 +86,7 @@ Display a scrollable list of saved plants with at least:
 - thumbnail image or placeholder
 - common name
 - botanical name or cultivar if present
-- location
+- short description if present
 
 ### Search
 User can search by plant name.
@@ -112,7 +109,7 @@ Do not build these into the first milestone unless unexpectedly easy:
 
 ## Suggested acceptance test for v1
 1. Create a plant called Stella Cherry
-2. Fill in location, description, care, habitat, and notes
+2. Fill in description, care, habitat, and notes
 3. Assign a QR code
 4. Return to home
 5. Scan the same QR code

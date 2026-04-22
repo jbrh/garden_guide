@@ -12,7 +12,6 @@ import { ScreenHeader } from "@/components/ScreenHeader";
 import { colors, spacing } from "@/constants/ui";
 import { routes } from "@/constants/routes";
 import { usePlant } from "@/hooks/usePlant";
-import { formatDate } from "@/utils/dates";
 import { getParamValue } from "@/utils/validation";
 
 export default function PlantDetailScreen() {
@@ -64,13 +63,6 @@ export default function PlantDetailScreen() {
           />
         </View>
 
-        <SectionCard title="Recognition">
-          <FieldRow
-            label="How to recognize it"
-            value={plant.recognitionNotes ?? "No recognition notes yet."}
-          />
-        </SectionCard>
-
         <SectionCard title="Care">
           <FieldRow
             label="Care basics"
@@ -85,12 +77,7 @@ export default function PlantDetailScreen() {
           />
         </SectionCard>
 
-        <SectionCard title="Garden details">
-          <FieldRow
-            label="Location"
-            value={plant.locationName ?? "Location not set"}
-          />
-          <FieldRow label="Date planted" value={formatDate(plant.datePlanted)} />
+        <SectionCard title="Label">
           <FieldRow
             label="QR label"
             value={plant.qrCodeValue ?? "No QR label assigned"}

@@ -19,8 +19,8 @@ export function PlantCard({ plant, onPress }: PlantCardProps) {
           <Text style={styles.detail}>{plant.botanicalName}</Text>
         ) : null}
         {plant.cultivar ? <Text style={styles.detail}>{plant.cultivar}</Text> : null}
-        <Text style={styles.location}>
-          {plant.locationName ? plant.locationName : "Location not set"}
+        <Text style={styles.summary}>
+          {plant.shortDescription ? plant.shortDescription : "No description yet"}
         </Text>
       </View>
     </Pressable>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     fontSize: 14,
   },
-  location: {
+  summary: {
     color: colors.accent,
     fontSize: 14,
     fontWeight: "600",

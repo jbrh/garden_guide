@@ -13,10 +13,7 @@ export interface PlantRow {
   common_name: string;
   botanical_name: string | null;
   cultivar: string | null;
-  location_name: string | null;
-  date_planted: string | null;
   short_description: string | null;
-  recognition_notes: string | null;
   care_basics: string | null;
   habitat_value: string | null;
   personal_notes: string | null;

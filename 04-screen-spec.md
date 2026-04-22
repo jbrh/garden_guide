@@ -60,7 +60,7 @@ Each row should show:
 - thumbnail or image placeholder
 - common name
 - botanical name or cultivar if available
-- location name
+- short description if available
 
 Tap behavior:
 - tapping a row opens Plant Detail
@@ -77,11 +77,9 @@ Top section:
 - short description
 
 Sections:
-- How to recognize it
 - Care basics
 - Habitat value
-- Location
-- Date planted
+- QR label
 - Personal notes
 
 Actions:
@@ -101,10 +99,7 @@ Fields:
 - Common name
 - Botanical name
 - Cultivar
-- Location
-- Date planted
 - Short description
-- How to recognize it
 - Care basics
 - Habitat value
 - Personal notes

@@ -25,6 +25,7 @@ This reduces cost, complexity, and the chance of getting stuck before the app is
 ### Mobile app
 - React Native app using Expo
 - local SQLite database on device
+- bundled garden-tour content authored in the repo and synced into SQLite on launch
 - local image URIs for plant photos
 - QR scanning through camera module
 
@@ -60,22 +61,25 @@ Supabase provides:
 - cloud backup
 - photo storage
 
-## Suggested project structure
+## Current project structure
 ```txt
 src/
+  app/
   components/
-  screens/
-  navigation/
+  constants/
+  data/
+  db/
   hooks/
+  repositories/
   services/
-    database/
-    qr/
-    photos/
-    sync/
-  models/
   types/
   utils/
 ```
+
+Notes:
+- `src/app/` is the Expo Router route root
+- `src/data/bundledGarden.ts` is the Mac-authored source-of-truth content file
+- `src/db/seed.ts` syncs bundled content into on-device SQLite at startup
 
 ## Suggested service boundaries
 
@@ -83,6 +87,7 @@ src/
 Responsibilities:
 - initialize SQLite
 - create schema
+- sync bundled garden content into local records
 - CRUD for gardens and plants
 - enforce QR uniqueness locally
 
@@ -127,4 +132,5 @@ Storage:
 ## Important implementation advice
 - do not wire in Supabase before the local app loop works
 - get create -> assign QR -> scan -> view detail working first
+- if the phones are for touring rather than authoring, keep the Mac-authored bundled garden data as the canonical content source
 - treat sync as a second major project, not part of the first milestone
