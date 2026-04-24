@@ -48,7 +48,7 @@ How it works:
 - the app upserts that bundled garden and its plants into local SQLite on launch
 - stable `id` values let newer builds update the same records on devices
 - stable `qrCodeValue` values keep label assignments attached to the intended plants
-- extra local-only records are currently left alone; bundled records with matching IDs are refreshed from the bundled file
+- plants removed from the bundled file are also removed from that bundled garden on device, so the Mac-authored file stays the exact source of truth
 
 Practical workflow:
 1. update `src/data/bundledGarden.ts` on the Mac

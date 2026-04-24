@@ -111,6 +111,9 @@ export async function syncBundledGardenData(
   const now = getNowIsoString();
   const gardenId = trimRequired(bundledGardenData.garden.id, "Bundled garden id");
   const isActive = bundledGardenData.garden.isActive ?? true;
+  const bundledPlantIds = bundledGardenData.plants.map((plant) =>
+    trimRequired(plant.id, "Bundled plant id"),
+  );
 
   if (isActive) {
     await db.runAsync(
@@ -139,4 +142,19 @@ export async function syncBundledGardenData(
   for (const plant of bundledGardenData.plants) {
     await syncBundledPlant(db, gardenId, plant, now);
   }
+
+  if (bundledPlantIds.length === 0) {
+    await db.runAsync("DELETE FROM plants WHERE garden_id = ?;", gardenId);
+    return;
+  }
+
+  const placeholders = bundledPlantIds.map(() => "?").join(", ");
+
+  await db.runAsync(
+    `DELETE FROM plants
+     WHERE garden_id = ?
+       AND id NOT IN (${placeholders});`,
+    gardenId,
+    ...bundledPlantIds,
+  );
 }
