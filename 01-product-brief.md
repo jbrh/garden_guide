@@ -18,6 +18,11 @@ A person stands near a plant bed, scans a QR label attached to a plant marker, a
 - habitat value
 - personal notes
 
+## Current v1 operating model
+- The Mac is the source of truth for plant content and QR assignments.
+- Plant records are authored and refined in the repo, then bundled into the app.
+- Phones are primarily for taking the tour: scanning labels, browsing the plant list, and reading plant details.
+
 ## Initial users
 - Jenny, who sets up and maintains her garden records
 - Jenny's husband, who wants help learning the names and meaning of plants in the garden

@@ -5,18 +5,17 @@
 - Scan
 - Plant List
 - Plant Detail
-- Add/Edit Plant
+- Add/Edit Plant (authoring flow retained in code but not exposed in the primary phone UI)
 
 ## 1. Home Screen
 Purpose:
 - act as landing page
 - make scanning easy
-- provide entry points to browse plants and add a plant
+- provide entry points to browse plants and scan labels
 
 Main UI elements:
 - primary button: `Scan Plant`
-- secondary button: `My Plants`
-- secondary button: `Add Plant`
+- secondary button: `Plant List`
 - optional garden name display near top
 
 Future additions:
@@ -54,7 +53,6 @@ Purpose:
 Main UI elements:
 - search input at top
 - scrollable list of plant cards or rows
-- add button
 
 Each row should show:
 - thumbnail or image placeholder
@@ -83,8 +81,7 @@ Sections:
 - Personal notes
 
 Actions:
-- Edit Plant
-- optional Delete Plant in an overflow or confirmation flow
+- no authoring actions in the primary tour UI
 
 Notes:
 - keep hierarchy strong
@@ -93,7 +90,7 @@ Notes:
 
 ## 5. Add/Edit Plant Screen
 Purpose:
-- create a new plant record or edit an existing one
+- retained for authoring and development work, but not exposed in the main phone-facing tour UI
 
 Fields:
 - Common name
@@ -125,4 +122,4 @@ Home -> Add Plant -> Save -> Assign QR Label -> Plant Detail
 Home -> Scan -> Plant Detail
 
 ### Browse flow
-Home -> My Plants -> Plant Detail -> Edit Plant
+Home -> Plant List -> Plant Detail

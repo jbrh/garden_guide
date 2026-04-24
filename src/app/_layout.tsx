@@ -28,7 +28,7 @@ export default function RootLayout() {
         >
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="scan" options={{ title: "Scan Plant" }} />
-          <Stack.Screen name="plants/index" options={{ title: "My Plants" }} />
+          <Stack.Screen name="plants/index" options={{ title: "Plant List" }} />
           <Stack.Screen name="plants/new" options={{ title: "Add Plant" }} />
           <Stack.Screen
             name="plants/[plantId]"

@@ -18,7 +18,7 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={styles.content}>
         <ScreenHeader
           eyebrow="Garden Companion"
-          subtitle="Scan a label, browse your plants, or add a new record."
+          subtitle="Scan a label or browse the plant list for the current garden."
           title="A field guide for your own garden"
         />
 
@@ -45,13 +45,8 @@ export default function HomeScreen() {
             onPress={() => router.push(routes.scan)}
           />
           <AppButton
-            label="My Plants"
+            label="Plant List"
             onPress={() => router.push(routes.plantList)}
-            variant="secondary"
-          />
-          <AppButton
-            label="Add Plant"
-            onPress={() => router.push(routes.plantNew)}
             variant="secondary"
           />
         </View>

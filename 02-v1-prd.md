@@ -1,16 +1,16 @@
 # V1 Product Requirements Document
 
 ## Objective
-Deliver a first usable version of the app that allows a user to create plant records, assign QR labels, scan labels, and view or edit rich plant information.
+Deliver a first usable version of the app that allows a user to bundle plant records from the Mac, assign QR labels to those records, scan labels on a phone, and view rich plant information during the tour.
 
 ## V1 success criteria
 A user can:
-1. create a plant record
-2. assign a QR code to that plant
+1. prepare plant records on the Mac and bundle them into the app
+2. assign a QR code to each plant record
 3. scan the QR code in the garden
 4. open the correct plant detail screen
 5. read useful information about the plant
-6. edit the plant later
+6. update the bundled plant data later from the Mac and ship a newer build
 
 ## Target platforms
 - iPhone
@@ -24,11 +24,9 @@ A user can:
 ## Required v1 capabilities
 
 ### Plant management
-- create plant
-- edit plant
-- delete plant
 - browse list of plants
 - search list of plants by name
+- refresh bundled plant content through newer builds
 
 ### QR support
 - assign a QR label to a plant
@@ -56,7 +54,7 @@ The plant detail screen must show:
 ## V1 user stories
 
 ### As a gardener
-I want to create a plant record so that I can store practical and personal knowledge about the plants in my garden.
+I want to prepare plant records on my Mac so that I can store practical and personal knowledge about the plants in my garden and ship that tour content to phones.
 
 ### As a gardener
 I want to assign a QR label to a plant so that I can access that plant's information later by scanning the label.
@@ -65,15 +63,15 @@ I want to assign a QR label to a plant so that I can access that plant's informa
 I want to scan a plant label and quickly learn what the plant is and why it matters.
 
 ### As a gardener
-I want to update notes later so that the app stays useful over time.
+I want to refine plant content on my Mac and ship updated builds so that the tour stays useful over time.
 
 ## V1 functional behavior
 
-### Create plant
-User can enter plant details and optionally attach a photo.
+### Mac-authored content
+Plant records are maintained in a bundled data file in the repo and synced into local SQLite on app launch.
 
 ### Assign label
-User can scan a QR code from within the Add/Edit Plant screen to assign it to the current plant.
+QR labels are assigned in the bundled plant data so the correct plant opens when the label is scanned on a phone.
 
 ### Scan flow
 From the Scan screen:
@@ -95,7 +93,7 @@ User can search by plant name.
 - keep the app simple and clear
 - make scan action prominent
 - keep plant detail readable and layered, not a wall of text
-- keep add/edit form manageable
+- optimize the phone UI for touring, not authoring
 
 ## V1 exclusions
 Do not build these into the first milestone unless unexpectedly easy:
@@ -108,10 +106,10 @@ Do not build these into the first milestone unless unexpectedly easy:
 - public cloud account system
 
 ## Suggested acceptance test for v1
-1. Create a plant called Stella Cherry
-2. Fill in description, care, habitat, and notes
-3. Assign a QR code
+1. Add a plant like Stella Cherry to the bundled garden data on the Mac
+2. Fill in description, care, habitat, notes, and a QR code value
+3. Launch the app so the bundled content syncs into SQLite
 4. Return to home
 5. Scan the same QR code
 6. Confirm the correct plant detail page opens
-7. Edit one field and confirm the change persists after app restart
+7. Update one field in the bundled data, relaunch the app, and confirm the change appears on the device

@@ -1,16 +1,14 @@
 import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native";
 
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { AppButton } from "@/components/AppButton";
 import { EmptyState } from "@/components/EmptyState";
 import { FieldRow } from "@/components/FieldRow";
 import { PlantPhoto } from "@/components/PlantPhoto";
 import { SectionCard } from "@/components/SectionCard";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { colors, spacing } from "@/constants/ui";
-import { routes } from "@/constants/routes";
 import { usePlant } from "@/hooks/usePlant";
 import { getParamValue } from "@/utils/validation";
 
@@ -54,13 +52,6 @@ export default function PlantDetailScreen() {
             ) : null}
             {plant.cultivar ? <Text style={styles.cultivar}>{plant.cultivar}</Text> : null}
           </View>
-        </View>
-
-        <View style={styles.actionRow}>
-          <AppButton
-            label="Edit Plant"
-            onPress={() => router.push(routes.plantEdit(plant.id))}
-          />
         </View>
 
         <SectionCard title="Care">
@@ -132,8 +123,5 @@ const styles = StyleSheet.create({
     color: colors.accent,
     fontSize: 16,
     fontWeight: "700",
-  },
-  actionRow: {
-    gap: spacing.sm,
   },
 });

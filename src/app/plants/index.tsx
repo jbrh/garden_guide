@@ -9,7 +9,6 @@ import {
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { AppButton } from "@/components/AppButton";
 import { EmptyState } from "@/components/EmptyState";
 import { PlantCard } from "@/components/PlantCard";
 import { ScreenHeader } from "@/components/ScreenHeader";
@@ -29,8 +28,8 @@ export default function PlantListScreen() {
     <SafeAreaView edges={["bottom"]} style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.content}>
         <ScreenHeader
-          subtitle="Browse plants in the active garden or search by name, cultivar, or location."
-          title="My Plants"
+          subtitle="Browse plants in the active garden or search by name, botanical name, or cultivar."
+          title="Plant List"
         />
 
         <TextInputField
@@ -38,12 +37,6 @@ export default function PlantListScreen() {
           onChangeText={setQuery}
           placeholder="Search plants"
           value={query}
-        />
-
-        <AppButton
-          label="Add Plant"
-          onPress={() => router.push(routes.plantNew)}
-          variant="secondary"
         />
 
         {isGardenLoading || isLoading ? (
@@ -57,7 +50,7 @@ export default function PlantListScreen() {
             description={
               query.trim()
                 ? "Try a different search term."
-                : "Add a plant to start building your local garden guide."
+                : "No bundled plants are available in the current garden."
             }
             title={query.trim() ? "No matching plants" : "No plants yet"}
           />

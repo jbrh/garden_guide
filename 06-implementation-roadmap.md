@@ -17,30 +17,30 @@ Definition of done:
 ## Milestone 1 - core data and screens
 Tasks:
 - create local SQLite schema for Garden and Plant
+- create a bundled garden data file as the Mac-authored source of truth
 - build Home screen
 - build Plant List screen
 - build Plant Detail screen with mock data
 - build Add/Edit Plant screen
 
 Definition of done:
-- user can create plant records locally
-- plant list and detail screens work from local data
+- bundled plant content syncs into local SQLite on launch
+- plant list and detail screens work from bundled local data
 
 ## Milestone 2 - QR assignment and scan loop
 Tasks:
 - add QR scanner screen
-- add Assign QR Label flow from Add/Edit Plant screen
-- enforce uniqueness of QR values locally
+- enforce uniqueness of QR values locally and in bundled content
 - route scanned QR to Plant Detail
 - handle unknown QR
 
 Definition of done:
 - full local workflow works end to end
-- create plant -> assign QR -> scan QR -> open plant detail
+- bundled plant content -> scan QR -> open plant detail
 
 ## Milestone 3 - polish and persistence validation
 Tasks:
-- improve form UX
+- improve tour UX
 - improve plant detail layout
 - add search in Plant List
 - validate persistence across app restarts
