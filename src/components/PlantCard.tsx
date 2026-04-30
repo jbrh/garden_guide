@@ -10,15 +10,17 @@ interface PlantCardProps {
 }
 
 export function PlantCard({ plant, onPress }: PlantCardProps) {
+  const hasPhoto = Boolean(plant.primaryPhotoUri);
+
   return (
     <Pressable onPress={onPress} style={({ pressed }) => [styles.card, pressed && styles.pressed]}>
-      <PlantPhoto size={88} uri={plant.primaryPhotoUri} />
+      {hasPhoto ? <PlantPhoto size={88} uri={plant.primaryPhotoUri} /> : null}
       <View style={styles.content}>
         <Text style={styles.name}>{plant.commonName}</Text>
         {plant.botanicalName ? (
           <Text style={styles.detail}>{plant.botanicalName}</Text>
         ) : null}
-        {plant.cultivar ? <Text style={styles.detail}>{plant.cultivar}</Text> : null}
+        {plant.cultivar ? <Text style={styles.cultivar}>{plant.cultivar}</Text> : null}
         <Text style={styles.summary}>
           {plant.shortDescription ? plant.shortDescription : "No description yet"}
         </Text>
@@ -54,6 +56,11 @@ const styles = StyleSheet.create({
   detail: {
     color: colors.textMuted,
     fontSize: 14,
+  },
+  cultivar: {
+    color: colors.textMuted,
+    fontSize: 14,
+    fontStyle: "italic",
   },
   summary: {
     color: colors.accent,

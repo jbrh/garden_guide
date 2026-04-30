@@ -1,8 +1,16 @@
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Linking,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 import { useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { AppButton } from "@/components/AppButton";
 import { EmptyState } from "@/components/EmptyState";
 import { FieldRow } from "@/components/FieldRow";
 import { PlantPhoto } from "@/components/PlantPhoto";
@@ -16,6 +24,9 @@ export default function PlantDetailScreen() {
   const params = useLocalSearchParams<{ plantId?: string }>();
   const plantId = getParamValue(params.plantId);
   const { plant, isLoading, error } = usePlant(plantId);
+  const botanicalSearchQuery = plant?.botanicalName
+    ? [plant.botanicalName, plant.cultivar].filter(Boolean).join(" ")
+    : null;
 
   if (isLoading) {
     return (
@@ -36,11 +47,13 @@ export default function PlantDetailScreen() {
     );
   }
 
+  const hasPhoto = Boolean(plant.primaryPhotoUri);
+
   return (
     <SafeAreaView edges={["bottom"]} style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.heroCard}>
-          <PlantPhoto size={140} uri={plant.primaryPhotoUri} />
+          {hasPhoto ? <PlantPhoto size={140} uri={plant.primaryPhotoUri} /> : null}
           <View style={styles.heroText}>
             <ScreenHeader
               eyebrow="Plant detail"
@@ -53,6 +66,20 @@ export default function PlantDetailScreen() {
             {plant.cultivar ? <Text style={styles.cultivar}>{plant.cultivar}</Text> : null}
           </View>
         </View>
+
+        {botanicalSearchQuery ? (
+          <AppButton
+            label="Search Google"
+            onPress={() => {
+              void Linking.openURL(
+                `https://www.google.com/search?q=${encodeURIComponent(
+                  botanicalSearchQuery,
+                )}`,
+              );
+            }}
+            variant="secondary"
+          />
+        ) : null}
 
         <SectionCard title="Care">
           <FieldRow
@@ -123,5 +150,6 @@ const styles = StyleSheet.create({
     color: colors.accent,
     fontSize: 16,
     fontWeight: "700",
+    fontStyle: "italic",
   },
 });

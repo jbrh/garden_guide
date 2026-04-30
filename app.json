@@ -27,6 +27,7 @@
       "typedRoutes": true
     },
     "ios": {
+      "bundleIdentifier": "com.jenny.gardencompanion",
       "supportsTablet": true
     },
     "android": {
