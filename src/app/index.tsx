@@ -1,4 +1,4 @@
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -19,7 +19,10 @@ export default function HomeScreen() {
         <ScreenHeader
           eyebrow="Garden Companion"
           subtitle="Scan a label or browse the plant list for the current garden."
-          title="A field guide for your own garden"
+          title="A field guide to your garden"
+          eyebrowStyle={styles.headerEyebrow}
+          titleStyle={styles.headerTitle}
+          subtitleStyle={styles.headerSubtitle}
         />
 
         <SectionCard>
@@ -31,9 +34,6 @@ export default function HomeScreen() {
               <Text style={styles.gardenName}>
                 {garden?.name ?? "No garden available"}
               </Text>
-              {garden?.description ? (
-                <Text style={styles.gardenDescription}>{garden.description}</Text>
-              ) : null}
               {error ? <Text style={styles.error}>{error}</Text> : null}
             </>
           )}
@@ -43,11 +43,19 @@ export default function HomeScreen() {
           <AppButton
             label="Scan Plant"
             onPress={() => router.push(routes.scan)}
+            variant="accent"
           />
           <AppButton
             label="Plant List"
             onPress={() => router.push(routes.plantList)}
             variant="secondary"
+          />
+        </View>
+
+        <View style={styles.brandMarkWrap}>
+          <Image
+            source={require("../../assets/app-icon.png")}
+            style={styles.brandMark}
           />
         </View>
       </ScrollView>
@@ -64,6 +72,17 @@ const styles = StyleSheet.create({
     gap: spacing.xl,
     padding: spacing.lg,
   },
+  headerEyebrow: {
+    fontSize: 15,
+    letterSpacing: 1.1,
+    marginBottom: spacing.xs,
+  },
+  headerTitle: {
+    marginBottom: spacing.sm,
+  },
+  headerSubtitle: {
+    lineHeight: 26,
+  },
   gardenLabel: {
     color: colors.textMuted,
     fontSize: 13,
@@ -76,13 +95,19 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "800",
   },
-  gardenDescription: {
-    color: colors.textMuted,
-    fontSize: 15,
-    lineHeight: 22,
-  },
   actions: {
-    gap: spacing.md,
+    gap: spacing.lg,
+    marginTop: spacing.xs,
+  },
+  brandMarkWrap: {
+    alignItems: "center",
+    paddingTop: spacing.lg,
+  },
+  brandMark: {
+    borderRadius: 28,
+    height: 112,
+    opacity: 0.78,
+    width: 112,
   },
   error: {
     color: colors.danger,

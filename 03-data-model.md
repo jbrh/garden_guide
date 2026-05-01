@@ -100,7 +100,7 @@ This would support:
 ```json
 {
   "id": "garden_001",
-  "name": "Jenny Home Garden",
+  "name": "Jenny's Garden",
   "createdAt": "2026-03-24T12:00:00Z",
   "updatedAt": "2026-03-24T12:00:00Z"
 }

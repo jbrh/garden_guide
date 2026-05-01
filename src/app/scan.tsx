@@ -13,7 +13,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppButton } from "@/components/AppButton";
 import { SectionCard } from "@/components/SectionCard";
-import { TextInputField } from "@/components/TextInputField";
 import { colors, spacing } from "@/constants/ui";
 import { routes } from "@/constants/routes";
 import {
@@ -24,17 +23,6 @@ import { getParamValue } from "@/utils/validation";
 
 type ScanMode = "lookup" | "assign";
 
-const SAMPLE_QR_LABELS = [
-  {
-    value: "QR-PLANT-0001",
-    label: "Open Stella Cherry",
-  },
-  {
-    value: "QR-PLANT-0002",
-    label: "Open Red Twig Dogwood",
-  },
-];
-
 export default function ScanScreen() {
   const db = useSQLiteContext();
   const params = useLocalSearchParams<{
@@ -44,7 +32,6 @@ export default function ScanScreen() {
   const mode = (getParamValue(params.mode) as ScanMode | undefined) ?? "lookup";
   const plantId = getParamValue(params.plantId);
   const [permission, requestPermission] = useCameraPermissions();
-  const [manualValue, setManualValue] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [isHandlingScan, setIsHandlingScan] = useState(false);
 
@@ -131,48 +118,6 @@ export default function ScanScreen() {
 
           {message ? <Text style={styles.message}>{message}</Text> : null}
         </SectionCard>
-
-        <SectionCard title="Manual test fallback">
-          <Text style={styles.instructions}>
-            Use this if you are testing in an environment where camera scanning is unavailable.
-          </Text>
-          {mode === "lookup" ? (
-            <View style={styles.sampleList}>
-              <Text style={styles.sampleTitle}>Seeded sample labels</Text>
-              {SAMPLE_QR_LABELS.map((sample) => (
-                <AppButton
-                  key={sample.value}
-                  label={`${sample.label} (${sample.value})`}
-                  onPress={() => {
-                    setManualValue(sample.value);
-                    void handleScanValue(sample.value);
-                  }}
-                  variant="secondary"
-                />
-              ))}
-            </View>
-          ) : null}
-          <TextInputField
-            autoCapitalize="characters"
-            label="QR label value"
-            onChangeText={setManualValue}
-            placeholder="QR-PLANT-0001"
-            value={manualValue}
-          />
-          {mode === "lookup" ? (
-            <Text style={styles.instructions}>
-              Try `QR-PLANT-0001` or `QR-PLANT-0002`. `QR-PLANT-001` is not currently assigned in the sample data.
-            </Text>
-          ) : null}
-          <AppButton
-            label={mode === "assign" ? "Assign Entered Label" : "Open Entered Label"}
-            onPress={() => {
-              void handleScanValue(manualValue);
-            }}
-            variant="secondary"
-          />
-          <AppButton label="Back" onPress={() => router.back()} variant="ghost" />
-        </SectionCard>
       </View>
     </SafeAreaView>
   );
@@ -199,14 +144,6 @@ const styles = StyleSheet.create({
   },
   permissionBox: {
     gap: spacing.md,
-  },
-  sampleList: {
-    gap: spacing.sm,
-  },
-  sampleTitle: {
-    color: colors.text,
-    fontSize: 15,
-    fontWeight: "700",
   },
   message: {
     color: colors.accent,

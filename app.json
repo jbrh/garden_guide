@@ -3,6 +3,7 @@
     "name": "Garden Companion",
     "slug": "garden-companion",
     "version": "1.0.0",
+    "icon": "./assets/app-icon.png",
     "orientation": "portrait",
     "scheme": "gardencompanion",
     "userInterfaceStyle": "light",
@@ -21,22 +22,36 @@
           "cameraPermission": "Allow Garden Companion to access your camera so you can capture plant photos.",
           "microphonePermission": false
         }
-      ]
+      ],
+      "expo-sqlite"
     ],
     "experiments": {
       "typedRoutes": true
     },
     "ios": {
       "bundleIdentifier": "com.jenny.gardencompanion",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
+        "foregroundImage": "./assets/app-icon.png",
         "backgroundColor": "#eef6ea"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA"
+      ]
     },
     "web": {
       "bundler": "metro"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "e34990b6-8abb-4f9b-b803-288ed2ed3e3f"
+      }
     }
   }
 }

@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { colors, radii, spacing } from "@/constants/ui";
 
-type Variant = "primary" | "secondary" | "danger" | "ghost";
+type Variant = "primary" | "accent" | "secondary" | "danger" | "ghost";
 
 interface AppButtonProps {
   label: string;
@@ -67,6 +67,13 @@ const styles = StyleSheet.create({
   primaryLabel: {
     color: colors.white,
   },
+  accentButton: {
+    backgroundColor: colors.accent,
+    borderColor: colors.accent,
+  },
+  accentLabel: {
+    color: colors.white,
+  },
   secondaryButton: {
     backgroundColor: colors.surface,
     borderColor: colors.border,
@@ -101,6 +108,10 @@ const variantStyles = {
   primary: {
     button: styles.primaryButton,
     label: styles.primaryLabel,
+  },
+  accent: {
+    button: styles.accentButton,
+    label: styles.accentLabel,
   },
   secondary: {
     button: styles.secondaryButton,

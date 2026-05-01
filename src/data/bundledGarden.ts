@@ -18,7 +18,7 @@ export interface BundledGardenData {
 export const bundledGardenData: BundledGardenData = {
   garden: {
     id: "garden_jenny_home",
-    name: "Jenny Home Garden",
+    name: "Jenny's Garden",
     description: "Bundled source-of-truth garden content for the tour app.",
     isActive: true,
   },

@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { colors, radii, shadows, spacing } from "@/constants/ui";
+import { getPlantPhotoSource } from "@/data/plantPhotoAssets";
 import type { Plant } from "@/types/domain";
 import { PlantPhoto } from "@/components/PlantPhoto";
 
@@ -10,11 +11,11 @@ interface PlantCardProps {
 }
 
 export function PlantCard({ plant, onPress }: PlantCardProps) {
-  const hasPhoto = Boolean(plant.primaryPhotoUri);
+  const photoSource = getPlantPhotoSource(plant.id, plant.primaryPhotoUri);
 
   return (
     <Pressable onPress={onPress} style={({ pressed }) => [styles.card, pressed && styles.pressed]}>
-      {hasPhoto ? <PlantPhoto size={88} uri={plant.primaryPhotoUri} /> : null}
+      {photoSource ? <PlantPhoto size={88} source={photoSource} uri={plant.primaryPhotoUri} /> : null}
       <View style={styles.content}>
         <Text style={styles.name}>{plant.commonName}</Text>
         {plant.botanicalName ? (

@@ -17,6 +17,7 @@ import { PlantPhoto } from "@/components/PlantPhoto";
 import { SectionCard } from "@/components/SectionCard";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { colors, spacing } from "@/constants/ui";
+import { getPlantPhotoSource } from "@/data/plantPhotoAssets";
 import { usePlant } from "@/hooks/usePlant";
 import { getParamValue } from "@/utils/validation";
 
@@ -47,18 +48,22 @@ export default function PlantDetailScreen() {
     );
   }
 
-  const hasPhoto = Boolean(plant.primaryPhotoUri);
+  const photoSource = getPlantPhotoSource(plant.id, plant.primaryPhotoUri);
 
   return (
     <SafeAreaView edges={["bottom"]} style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.heroCard}>
-          {hasPhoto ? <PlantPhoto size={140} uri={plant.primaryPhotoUri} /> : null}
+          {photoSource ? (
+            <PlantPhoto size={140} source={photoSource} uri={plant.primaryPhotoUri} />
+          ) : null}
           <View style={styles.heroText}>
             <ScreenHeader
               eyebrow="Plant detail"
               subtitle={plant.shortDescription ?? "No short description yet."}
               title={plant.commonName}
+              titleStyle={styles.heroTitle}
+              subtitleStyle={styles.heroSubtitle}
             />
             {plant.botanicalName ? (
               <Text style={styles.botanicalName}>{plant.botanicalName}</Text>
@@ -140,6 +145,12 @@ const styles = StyleSheet.create({
   },
   heroText: {
     gap: spacing.sm,
+  },
+  heroTitle: {
+    color: colors.text,
+  },
+  heroSubtitle: {
+    color: colors.textMuted,
   },
   botanicalName: {
     color: colors.textMuted,
