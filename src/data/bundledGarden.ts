@@ -1,4 +1,5 @@
 import type { CreatePlantInput } from "@/types/domain";
+
 export interface BundledGardenDefinition {
   id: string;
   name: string;
@@ -14,16 +15,18 @@ export interface BundledGardenData {
   plants: BundledPlantDefinition[];
 }
 // Edit this file on your Mac to manage the canonical garden-tour content
-// that ships with the app build.
-export const bundledGardenData: BundledGardenData = {
-  garden: {
-    id: "garden_jenny_home",
-    name: "Jenny's Garden",
-    description: "Bundled source-of-truth garden content for the tour app.",
-    isActive: true,
-  },
-  plants: [
-    {
+// that ships with the app build. Add more objects to this array when you
+// want the app to support multiple bundled gardens.
+export const bundledGardensData: BundledGardenData[] = [
+  {
+    garden: {
+      id: "garden_jenny_home",
+      name: "Jenny's Garden",
+      description: "Bundled source-of-truth garden content for the tour app.",
+      isActive: true,
+    },
+    plants: [
+      {
       id: "rose_zepherine_drouhin",
       commonName: "Bourbon Rose",
       botanicalName: "Rosa × borbonica",
@@ -155,8 +158,8 @@ export const bundledGardenData: BundledGardenData = {
       qrCodeValue: "JH011",
       primaryPhotoUri: null,
     },
-    {
-      id: "agapanthus_fireworks",
+      {
+        id: "agapanthus_fireworks",
       commonName: "Agapanthus",
       botanicalName: "Agapanthus x",
       cultivar: "Fireworks",
@@ -167,8 +170,8 @@ export const bundledGardenData: BundledGardenData = {
       qrCodeValue: "JH012",
       primaryPhotoUri: null,
     },
-    {
-      id: "geranium_rozanne",
+      {
+        id: "geranium_rozanne",
       commonName: "Geranium",
       botanicalName: "Geranium himalayense",
       cultivar: "Rozanne",
@@ -179,8 +182,8 @@ export const bundledGardenData: BundledGardenData = {
       qrCodeValue: "JH013",
       primaryPhotoUri: null,
     },
-    {
-      id: "anemone_prince_henry",
+      {
+        id: "anemone_prince_henry",
       commonName: "Japanese Anemone",
       botanicalName: "Anemone hupehensis",
       cultivar: "Prince Henry",
@@ -191,8 +194,8 @@ export const bundledGardenData: BundledGardenData = {
       qrCodeValue: "JH014",
       primaryPhotoUri: null,
     },
-    {
-      id: "hyssop",
+      {
+        id: "hyssop",
       commonName: "Giant Hyssop",
       botanicalName: "Agastache x",
       cultivar: null,
@@ -707,5 +710,15 @@ export const bundledGardenData: BundledGardenData = {
       qrCodeValue: "JH057",
       primaryPhotoUri: null,
     },
-  ],
-};
+    ],
+  },
+  {
+    garden: {
+      id: "garden_daughter_home",
+      name: "Maia's Garden",
+      description: "Second bundled garden scaffold. Add plants here when ready.",
+      isActive: false,
+    },
+    plants: [],
+  },
+];

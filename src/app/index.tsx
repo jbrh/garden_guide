@@ -9,9 +9,21 @@ import { SectionCard } from "@/components/SectionCard";
 import { colors, spacing } from "@/constants/ui";
 import { routes } from "@/constants/routes";
 import { useActiveGarden } from "@/hooks/useActiveGarden";
+import { useGardens } from "@/hooks/useGardens";
 
 export default function HomeScreen() {
-  const { garden, isLoading, error } = useActiveGarden();
+  const { garden, isLoading, error, refresh } = useActiveGarden();
+  const {
+    gardens,
+    isLoading: areGardensLoading,
+    error: gardensError,
+    setActiveGarden,
+  } = useGardens();
+
+  async function handleActivateGarden(gardenId: string) {
+    await setActiveGarden(gardenId);
+    await refresh();
+  }
 
   return (
     <SafeAreaView edges={["top", "bottom"]} style={styles.safeArea}>
@@ -38,6 +50,32 @@ export default function HomeScreen() {
             </>
           )}
         </SectionCard>
+
+        {!areGardensLoading && gardens.length > 1 ? (
+          <SectionCard title="Gardens">
+            <Text style={styles.gardenSwitchDescription}>
+              Choose which bundled garden you want to tour right now.
+            </Text>
+            <View style={styles.gardenSwitchList}>
+              {gardens.map((availableGarden) => {
+                const isActiveGarden = availableGarden.id === garden?.id;
+
+                return (
+                  <AppButton
+                    key={availableGarden.id}
+                    disabled={isActiveGarden}
+                    label={availableGarden.name}
+                    onPress={() => {
+                      void handleActivateGarden(availableGarden.id);
+                    }}
+                    variant={isActiveGarden ? "primary" : "secondary"}
+                  />
+                );
+              })}
+            </View>
+            {gardensError ? <Text style={styles.error}>{gardensError}</Text> : null}
+          </SectionCard>
+        ) : null}
 
         <View style={styles.actions}>
           <AppButton
@@ -94,6 +132,14 @@ const styles = StyleSheet.create({
     color: colors.text,
     fontSize: 24,
     fontWeight: "800",
+  },
+  gardenSwitchDescription: {
+    color: colors.textMuted,
+    fontSize: 15,
+    lineHeight: 22,
+  },
+  gardenSwitchList: {
+    gap: spacing.md,
   },
   actions: {
     gap: spacing.lg,
