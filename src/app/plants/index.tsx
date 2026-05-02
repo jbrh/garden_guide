@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,7 +14,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { PlantCard } from "@/components/PlantCard";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { TextInputField } from "@/components/TextInputField";
-import { colors, spacing } from "@/constants/ui";
+import { colors, radii, spacing } from "@/constants/ui";
 import { routes } from "@/constants/routes";
 import { useActiveGarden } from "@/hooks/useActiveGarden";
 import { usePlants } from "@/hooks/usePlants";
@@ -25,8 +26,19 @@ export default function PlantListScreen() {
   const { plants, isLoading, error } = usePlants(garden?.id, query);
 
   return (
-    <SafeAreaView edges={["bottom"]} style={styles.safeArea}>
+    <SafeAreaView edges={["top", "bottom"]} style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.content}>
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => router.replace(routes.home)}
+          style={({ pressed }) => [
+            styles.homeLink,
+            pressed && styles.homeLinkPressed,
+          ]}
+        >
+          <Text style={styles.homeLinkText}>{"< Home"}</Text>
+        </Pressable>
+
         <ScreenHeader
           subtitle="Browse plants in the active garden or search by name, botanical name, or cultivar."
           title="Plant List"
@@ -60,7 +72,7 @@ export default function PlantListScreen() {
           {plants.map((plant) => (
             <PlantCard
               key={plant.id}
-              onPress={() => router.push(routes.plantDetail(plant.id))}
+              onPress={() => router.push(routes.plantDetail(plant.id, "List"))}
               plant={plant}
             />
           ))}
@@ -79,6 +91,25 @@ const styles = StyleSheet.create({
     gap: spacing.lg,
     padding: spacing.lg,
     paddingBottom: spacing.xxl,
+  },
+  homeLink: {
+    alignSelf: "flex-start",
+    backgroundColor: colors.surface,
+    borderColor: colors.border,
+    borderRadius: radii.pill,
+    borderWidth: 1,
+    justifyContent: "center",
+    marginBottom: -4,
+    minHeight: 52,
+    paddingHorizontal: spacing.lg,
+  },
+  homeLinkPressed: {
+    opacity: 0.72,
+  },
+  homeLinkText: {
+    color: colors.text,
+    fontSize: 16,
+    fontWeight: "700",
   },
   list: {
     gap: spacing.md,

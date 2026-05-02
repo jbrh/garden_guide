@@ -21,28 +21,34 @@ export default function RootLayout() {
         <Stack
           screenOptions={{
             contentStyle: { backgroundColor: colors.background },
+            headerBackButtonDisplayMode: "default",
             headerShadowVisible: false,
             headerStyle: { backgroundColor: colors.background },
-            headerTintColor: colors.text,
+            headerTintColor: colors.textOnDark,
+            headerTitleStyle: { color: colors.textOnDark },
           }}
         >
-          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="index"
+            options={{ headerShown: false, title: "Home" }}
+          />
           <Stack.Screen
             name="scan"
-            options={{ headerTitle: "", headerBackTitle: "Home" }}
+            options={{
+              headerShown: false,
+            }}
           />
           <Stack.Screen
             name="plants/index"
-            options={{ headerTitle: "", headerBackTitle: "Home" }}
+            options={{
+              headerShown: false,
+            }}
           />
-          <Stack.Screen name="plants/new" options={{ title: "Add Plant" }} />
           <Stack.Screen
             name="plants/[plantId]"
-            options={{ title: "Plant Detail" }}
-          />
-          <Stack.Screen
-            name="plants/[plantId]/edit"
-            options={{ title: "Edit Plant" }}
+            options={{
+              title: "Plant Detail",
+            }}
           />
           <Stack.Screen name="+not-found" options={{ title: "Not Found" }} />
         </Stack>

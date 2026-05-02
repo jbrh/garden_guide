@@ -7,7 +7,8 @@ import {
   View,
 } from "react-native";
 
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppButton } from "@/components/AppButton";
@@ -22,12 +23,20 @@ import { usePlant } from "@/hooks/usePlant";
 import { getParamValue } from "@/utils/validation";
 
 export default function PlantDetailScreen() {
-  const params = useLocalSearchParams<{ plantId?: string }>();
+  const params = useLocalSearchParams<{ plantId?: string; backLabel?: string }>();
+  const navigation = useNavigation();
   const plantId = getParamValue(params.plantId);
+  const backLabel = getParamValue(params.backLabel) ?? "Home";
   const { plant, isLoading, error } = usePlant(plantId);
   const botanicalSearchQuery = plant?.botanicalName
     ? [plant.botanicalName, plant.cultivar].filter(Boolean).join(" ")
     : null;
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerBackTitle: backLabel,
+    });
+  }, [backLabel, navigation]);
 
   if (isLoading) {
     return (

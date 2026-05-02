@@ -12,15 +12,7 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow Garden Companion to access your camera to scan plant labels and capture plant photos."
-        }
-      ],
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "Allow Garden Companion to access your photo library so you can attach plant photos.",
-          "cameraPermission": "Allow Garden Companion to access your camera so you can capture plant photos.",
-          "microphonePermission": false
+          "cameraPermission": "Allow Garden Companion to access your camera to scan plant labels."
         }
       ],
       "expo-sqlite"

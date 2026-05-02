@@ -50,42 +50,6 @@ export interface CreatePlantInput {
   primaryPhotoUri?: string | null;
 }
 
-export interface UpdatePlantInput {
-  commonName?: string;
-  botanicalName?: string | null;
-  cultivar?: string | null;
-  shortDescription?: string | null;
-  careBasics?: string | null;
-  habitatValue?: string | null;
-  personalNotes?: string | null;
-  qrCodeValue?: string | null;
-  primaryPhotoUri?: string | null;
-}
-
-export interface PlantFormValues {
-  commonName: string;
-  botanicalName: string;
-  cultivar: string;
-  shortDescription: string;
-  careBasics: string;
-  habitatValue: string;
-  personalNotes: string;
-  qrCodeValue: string;
-  primaryPhotoUri: string | null;
-}
-
-export const emptyPlantFormValues: PlantFormValues = {
-  commonName: "",
-  botanicalName: "",
-  cultivar: "",
-  shortDescription: "",
-  careBasics: "",
-  habitatValue: "",
-  personalNotes: "",
-  qrCodeValue: "",
-  primaryPhotoUri: null,
-};
-
 export function mapGardenRow(row: GardenRow): Garden {
   return {
     id: row.id,
@@ -112,19 +76,5 @@ export function mapPlantRow(row: PlantRow): Plant {
     primaryPhotoUri: row.primary_photo_uri,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
-  };
-}
-
-export function toPlantFormValues(plant: Plant): PlantFormValues {
-  return {
-    commonName: plant.commonName,
-    botanicalName: plant.botanicalName ?? "",
-    cultivar: plant.cultivar ?? "",
-    shortDescription: plant.shortDescription ?? "",
-    careBasics: plant.careBasics ?? "",
-    habitatValue: plant.habitatValue ?? "",
-    personalNotes: plant.personalNotes ?? "",
-    qrCodeValue: plant.qrCodeValue ?? "",
-    primaryPhotoUri: plant.primaryPhotoUri,
   };
 }
