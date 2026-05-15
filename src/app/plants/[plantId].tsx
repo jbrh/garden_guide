@@ -1,5 +1,7 @@
 import {
   ActivityIndicator,
+  Modal,
+  Pressable,
   Linking,
   ScrollView,
   StyleSheet,
@@ -8,7 +10,7 @@ import {
 } from "react-native";
 
 import { useLocalSearchParams, useNavigation } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppButton } from "@/components/AppButton";
@@ -25,6 +27,7 @@ import { getParamValue } from "@/utils/validation";
 export default function PlantDetailScreen() {
   const params = useLocalSearchParams<{ plantId?: string; backLabel?: string }>();
   const navigation = useNavigation();
+  const [isPhotoOpen, setIsPhotoOpen] = useState(false);
   const plantId = getParamValue(params.plantId);
   const backLabel = getParamValue(params.backLabel) ?? "Home";
   const { plant, isLoading, error } = usePlant(plantId);
@@ -64,7 +67,16 @@ export default function PlantDetailScreen() {
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.heroCard}>
           {photoSource ? (
-            <PlantPhoto size={140} source={photoSource} uri={plant.primaryPhotoUri} />
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => setIsPhotoOpen(true)}
+              style={({ pressed }) => [
+                styles.photoTrigger,
+                pressed && styles.photoTriggerPressed,
+              ]}
+            >
+              <PlantPhoto size={140} source={photoSource} uri={plant.primaryPhotoUri} />
+            </Pressable>
           ) : null}
           <View style={styles.heroText}>
             <ScreenHeader
@@ -123,6 +135,37 @@ export default function PlantDetailScreen() {
           />
         </SectionCard>
       </ScrollView>
+
+      {photoSource ? (
+        <Modal
+          animationType="fade"
+          onRequestClose={() => setIsPhotoOpen(false)}
+          transparent
+          visible={isPhotoOpen}
+        >
+          <SafeAreaView edges={["top", "bottom"]} style={styles.photoModalScreen}>
+            <Pressable
+              onPress={() => setIsPhotoOpen(false)}
+              style={styles.photoModalBackdrop}
+            />
+            <View style={styles.photoModalContent}>
+              <View style={styles.photoModalImageWrap}>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => setIsPhotoOpen(false)}
+                  style={({ pressed }) => [
+                    styles.photoCloseButton,
+                    pressed && styles.photoCloseButtonPressed,
+                  ]}
+                >
+                  <Text style={styles.photoCloseLabel}>X</Text>
+                </Pressable>
+                <PlantPhoto size={320} source={photoSource} uri={plant.primaryPhotoUri} />
+              </View>
+            </View>
+          </SafeAreaView>
+        </Modal>
+      ) : null}
     </SafeAreaView>
   );
 }
@@ -152,6 +195,12 @@ const styles = StyleSheet.create({
     gap: spacing.lg,
     padding: spacing.lg,
   },
+  photoTrigger: {
+    alignSelf: "flex-start",
+  },
+  photoTriggerPressed: {
+    opacity: 0.92,
+  },
   heroText: {
     gap: spacing.sm,
   },
@@ -171,5 +220,44 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "700",
     fontStyle: "italic",
+  },
+  photoModalScreen: {
+    backgroundColor: "rgba(20, 28, 22, 0.92)",
+    flex: 1,
+  },
+  photoModalBackdrop: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  photoModalContent: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+    padding: spacing.lg,
+  },
+  photoModalImageWrap: {
+    position: "relative",
+  },
+  photoCloseButton: {
+    alignItems: "center",
+    backgroundColor: colors.surface,
+    borderColor: colors.border,
+    borderRadius: 999,
+    borderWidth: 1,
+    height: 44,
+    justifyContent: "center",
+    left: 10,
+    position: "absolute",
+    top: 10,
+    width: 44,
+    zIndex: 1,
+  },
+  photoCloseButtonPressed: {
+    opacity: 0.84,
+  },
+  photoCloseLabel: {
+    color: colors.text,
+    fontSize: 18,
+    fontWeight: "700",
+    lineHeight: 20,
   },
 });
